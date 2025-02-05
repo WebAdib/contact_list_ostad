@@ -45,7 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
           TextButton(
             onPressed: () => Navigator.pop(context),
             child: Icon(
-              Icons.folder_off_outlined,
+              Icons.no_sim_outlined,
               color: Colors.blue,
             ),
           ),
