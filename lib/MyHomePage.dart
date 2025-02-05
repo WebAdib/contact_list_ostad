@@ -32,8 +32,15 @@ class _MyHomePageState extends State<MyHomePage> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Confirmation'),
-        content: Text('Are you sure for Delete?'),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(5), // Rounded corners
+        ),
+        title: Text(
+          'Confirmation',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+        ),
+        content:
+            Text('Are you sure for Delete?', style: TextStyle(fontSize: 15)),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
@@ -100,7 +107,12 @@ class _MyHomePageState extends State<MyHomePage> {
                         hintStyle: TextStyle(color: Colors.grey),
                         border: OutlineInputBorder(),
                       ),
-                      //validator: _formKey,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Name is required';
+                        }
+                        return null;
+                      },
                     ),
                     SizedBox(height: 5),
                     TextFormField(
@@ -112,10 +124,22 @@ class _MyHomePageState extends State<MyHomePage> {
                         hintStyle: TextStyle(color: Colors.grey),
                         border: OutlineInputBorder(),
                       ),
+                      validator: (value) {
+                        if (value == null ||
+                            !RegExp(r'^01[3-9][0-9]{8}$').hasMatch(value)) {
+                          return 'Enter a valid 11-digit number starting with 01[3-9]';
+                        }
+                        return null;
+                      },
                     ),
                     SizedBox(height: 12),
                     ElevatedButton(
-                      onPressed: _addContact,
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          _addContact();
+                        } else {}
+                      },
+                      //_addContact,
                       child: Text(
                         'Add',
                         style: TextStyle(fontSize: 16),
@@ -126,6 +150,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
             ),
+
+            /////////////////// List Tile
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(5.0),
@@ -142,7 +168,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           child: ListTile(
                             leading: Icon(
                               Icons.person,
-                              size: 40,
+                              size: 38,
                               color: Colors.brown,
                             ),
                             title: Text(
@@ -182,3 +208,6 @@ class _MyHomePageState extends State<MyHomePage> {
         ));
   }
 }
+
+//01877777777
+//01745777777
